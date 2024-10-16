@@ -72,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'notification_app.wsgi.application'
+ASGI_APPLICATION = 'notification_app.asgi.application'
 
 
 # Database
