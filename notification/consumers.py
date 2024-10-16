@@ -25,6 +25,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         if event_type == "chat_message":
             message = data.get("message")
+            print("message", message)
             await self.channel_layer.group_send(
                 self.chat_group,
                 {

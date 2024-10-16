@@ -10,7 +10,7 @@ class TriggerNotif(APIView):
     def get(self, request):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            "notification",
+            "notifications",
             {
                 "type": "send_notif",
                 "message": "You have a new notification"
