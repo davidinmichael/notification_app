@@ -21,50 +21,61 @@ To run this project, you'll need the following installed:
 
 ## Installation
 
-1. Clone the repository to your local machine:
+1.  Clone the repository to your local machine:
 
     git clone https://github.com/davidinmichael/notification_app.git
     cd notification_app
+
     ```
 
-2. Set up a virtual environment and activate it:
+    ```
 
+2.  Set up a virtual environment and activate it:
+
+    ```bash
     python -m venv .venv
     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     ```
 
-3. Install the required packages:
+3.  Install the required packages:
 
+    ```bash
     pip install -r requirements.txt
     ```
 
-4. Set up Redis for your channel layers. Make sure you have Redis running and configured in your settings (For production):
+4.  Set up Redis for your channel layers. Make sure you have Redis running and configured in your settings (For production):
 
-    # In settings.py
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [("127.0.0.1", 6379)],
+        ```python
+        # In settings.py
+        CHANNEL_LAYERS = {
+            "default": {
+                "BACKEND": "channels_redis.core.RedisChannelLayer",
+                "CONFIG": {
+                    "hosts": [("127.0.0.1", 6379)],
+                },
             },
-        },
+        }
+        ```
+        ```python
+        # in Development
+        CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer"
+        }
+
     }
-in Development
-    CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
-}
+
+````
 
 5. Apply the database migrations:
-
+    ```bash
     python manage.py migrate
     ```
 
 6. Run the Redis server: (Ignore if not using redis)
 
     If Redis is installed on your local machine, you can run it using:
-
+    ```bash
     redis-server
     ```
 
@@ -74,9 +85,13 @@ To run the application:
 
 1. Start the Django development server with Daphne:
 
+    ```bash
     daphne -b 127.0.0.1 -p 8000 notification_app.asgi:application
+    ```
 
-    or add the daphne in installed apps and run the server as usuall - python manage.py runserver
+    or add the daphne in installed apps and run the server as usuall - 
+    ```bash
+    python manage.py runserver
     ```
 
 2. Navigate to the WebSocket client and connect to:
@@ -88,7 +103,7 @@ To run the application:
 3. To test notifications, you can create a notification via the API. Here's an example using Postman or cURL:
 
     **GET** to `http://127.0.0.1:8000/`:
-    
+
     ```bash
     curl -X POST http://127.0.0.1:8000/ \
     -H 'Content-Type: application/json' \
@@ -137,3 +152,4 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             "message": message
         }))
+````
