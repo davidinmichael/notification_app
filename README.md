@@ -55,16 +55,15 @@ To run this project, you'll need the following installed:
             },
         }
         ```
-        # in Development
 
         ```python
+        # in Development
         CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels.layers.InMemoryChannelLayer"
+            "default": {
+                "BACKEND": "channels.layers.InMemoryChannelLayer"
+            }
+
         }
-
-    }
-
         ````
 
 5.  Apply the database migrations:
