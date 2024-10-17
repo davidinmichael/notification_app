@@ -23,10 +23,9 @@ To run this project, you'll need the following installed:
 
 1.  Clone the repository to your local machine:
 
+    ```bash
     git clone https://github.com/davidinmichael/notification_app.git
     cd notification_app
-
-    ```
 
     ```
 
@@ -56,8 +55,9 @@ To run this project, you'll need the following installed:
             },
         }
         ```
-        ```python
         # in Development
+
+        ```python
         CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels.layers.InMemoryChannelLayer"
@@ -65,16 +65,18 @@ To run this project, you'll need the following installed:
 
     }
 
-````
+        ````
 
-5. Apply the database migrations:
+5.  Apply the database migrations:
+
     ```bash
     python manage.py migrate
     ```
 
-6. Run the Redis server: (Ignore if not using redis)
+6.  Run the Redis server: (Ignore if not using redis)
 
     If Redis is installed on your local machine, you can run it using:
+
     ```bash
     redis-server
     ```
@@ -85,30 +87,31 @@ To run the application:
 
 1. Start the Django development server with Daphne:
 
-    ```bash
-    daphne -b 127.0.0.1 -p 8000 notification_app.asgi:application
-    ```
+   ```bash
+   daphne -b 127.0.0.1 -p 8000 notification_app.asgi:application
+   ```
 
-    or add the daphne in installed apps and run the server as usuall - 
-    ```bash
-    python manage.py runserver
-    ```
+   or add the daphne in installed apps and run the server as usuall -
+
+   ```bash
+   python manage.py runserver
+   ```
 
 2. Navigate to the WebSocket client and connect to:
 
-    ```
-    ws://127.0.0.1:8000/ws/notifications/
-    ```
+   ```
+   ws://127.0.0.1:8000/ws/notifications/
+   ```
 
 3. To test notifications, you can create a notification via the API. Here's an example using Postman or cURL:
 
-    **GET** to `http://127.0.0.1:8000/`:
+   **GET** to `http://127.0.0.1:8000/`:
 
-    ```bash
-    curl -X POST http://127.0.0.1:8000/ \
-    -H 'Content-Type: application/json' \
-    -d '{"message": "New notification created!"}'
-    ```
+   ```bash
+   curl -X POST http://127.0.0.1:8000/ \
+   -H 'Content-Type: application/json' \
+   -d '{"message": "New notification created!"}'
+   ```
 
 4. Any connected WebSocket clients will immediately receive the notification message in real-time.
 
@@ -152,4 +155,4 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             "message": message
         }))
-````
+```
